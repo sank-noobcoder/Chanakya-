@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ShieldCheck, Cpu, Play, BarChart3, BookOpen, User, LogOut } from "lucide-react";
+import { ShieldCheck, Cpu, Play, BarChart3, BookOpen, User, LogOut, Box } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 
 export default function Navbar() {
@@ -13,6 +13,7 @@ export default function Navbar() {
   const navItems = [
     { name: "Dashboard", href: "/dashboard", icon: Cpu },
     { name: "New Solve", href: "/jobs/new", icon: Play },
+    { name: "3D Polytope", href: "/visualizer", icon: Box },
     { name: "Benchmarks", href: "/benchmarks", icon: BarChart3 },
     { name: "Algorithms & Docs", href: "/docs", icon: BookOpen },
     // Only show Admin nav link to users with admin clearance
