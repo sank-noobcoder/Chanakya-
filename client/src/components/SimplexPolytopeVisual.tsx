@@ -8,10 +8,18 @@ interface Point3D {
   z: number;
 }
 
-export default function SimplexPolytopeVisual() {
+interface SimplexPolytopeVisualProps {
+  targetObjective?: number;
+  modelName?: string;
+}
+
+export default function SimplexPolytopeVisual({
+  targetObjective = 1420.5,
+  modelName,
+}: SimplexPolytopeVisualProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [currentStep, setCurrentStep] = useState<number>(0);
-  const [currentObjective, setCurrentObjective] = useState<number>(1420.5);
+  const [currentObjective, setCurrentObjective] = useState<number>(targetObjective);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -43,7 +51,14 @@ export default function SimplexPolytopeVisual() {
 
     // Simplex pivot sequence along adjacent vertices towards optimal
     const simplexPath = [0, 1, 2, 9, 10, 12];
-    const objectiveValues = [2400.0, 2150.2, 1890.8, 1640.4, 1510.0, 1420.5];
+    const objectiveValues = [
+      targetObjective * 1.85,
+      targetObjective * 1.55,
+      targetObjective * 1.32,
+      targetObjective * 1.15,
+      targetObjective * 1.04,
+      targetObjective,
+    ];
 
     let pathProgress = 0;
     let pathIndex = 0;
@@ -161,7 +176,7 @@ export default function SimplexPolytopeVisual() {
     return () => {
       cancelAnimationFrame(animationFrameId);
     };
-  }, []);
+  }, [targetObjective]);
 
   return (
     <div className="relative w-full h-[380px] sm:h-[460px] flex items-center justify-center">
@@ -177,15 +192,15 @@ export default function SimplexPolytopeVisual() {
       <div className="absolute top-4 left-4 glass-panel px-3.5 py-2 text-xs font-mono border-white/10 shadow-lg">
         <div className="flex items-center space-x-2 text-gray-400">
           <span className="w-2 h-2 rounded-full bg-saffron animate-ping"></span>
-          <span>Dual Revised Simplex Pivot</span>
+          <span>{modelName ? `${modelName}` : "Dual Revised Simplex Pivot"}</span>
         </div>
         <div className="text-white font-bold mt-1">Iteration #{currentStep * 14 + 28}</div>
       </div>
 
       <div className="absolute bottom-4 right-4 glass-panel px-3.5 py-2 text-xs font-mono border-white/10 shadow-lg text-right">
-        <span className="text-gray-400">Current Objective (c^T x)</span>
+        <span className="text-gray-400">Current Objective (cᵀ x)</span>
         <div className="text-cyan-live font-bold text-sm tabular-nums mt-0.5">
-          ₹ {currentObjective.toFixed(4)}
+          ₹ {currentObjective >= 100000 ? currentObjective.toLocaleString("en-IN", { maximumFractionDigits: 2 }) : currentObjective.toFixed(4)}
         </div>
         <span className="text-[10px] text-emerald-400">Feasible Basis</span>
       </div>

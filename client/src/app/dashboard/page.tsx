@@ -39,7 +39,10 @@ function DashboardContent() {
             type: j.problem_type || "LP",
             status: j.status,
             time: j.stats?.solve_time_s ? `${j.stats.solve_time_s.toFixed(2)}s` : "--",
-            obj: j.objective !== null && j.objective !== undefined ? `₹ ${j.objective.toLocaleString()}` : "--",
+            obj:
+              j.objective !== null && j.objective !== undefined
+                ? `₹ ${Number(j.objective).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 4 })}`
+                : "--",
             created: new Date(j.created_at).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
           }));
         }
@@ -60,7 +63,10 @@ function DashboardContent() {
             type: j.problem_type || "LP",
             status: j.status || "completed",
             time: j.stats?.solve_time_s ? `${j.stats.solve_time_s.toFixed(2)}s` : "0.24s",
-            obj: j.objective ? `₹ ${Number(j.objective).toLocaleString()}` : "₹ 109.20",
+            obj:
+              j.objective !== undefined && j.objective !== null
+                ? `₹ ${Number(j.objective).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 4 })}`
+                : "--",
             created: new Date(j.created_at || Date.now()).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
           }));
         } catch {}
