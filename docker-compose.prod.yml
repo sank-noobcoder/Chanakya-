@@ -1,0 +1,82 @@
+services:
+  reverse-proxy:
+    image: nginx:1.27-alpine
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./infra/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./infra/nginx/conf.d:/etc/nginx/conf.d:ro
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+    security_opt:
+      - no-new-privileges:true
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 1024M
+    networks:
+      - chanakya-public
+      - chanakya-internal
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      - NODE_ENV=production
+    security_opt:
+      - no-new-privileges:true
+    deploy:
+      resources:
+        limits:
+          cpus: '4.0'
+          memory: 4096M
+    networks:
+      - chanakya-internal
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      - ENVIRONMENT=production
+      - DEBUG=false
+    security_opt:
+      - no-new-privileges:true
+    deploy:
+      resources:
+        limits:
+          cpus: '4.0'
+          memory: 4096M
+    networks:
+      - chanakya-internal
+
+  solver-worker:
+    build:
+      context: ./solver-core
+      dockerfile: Dockerfile.worker
+    restart: always
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=2048m
+    deploy:
+      resources:
+        limits:
+          cpus: '8.0'
+          memory: 16384M
+    networks:
+      - chanakya-isolated-worker
+
+networks:
+  chanakya-public:
+  chanakya-internal:
+  chanakya-isolated-worker:
+    internal: true

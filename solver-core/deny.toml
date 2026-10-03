@@ -1,0 +1,44 @@
+# ==============================================================================
+# Sovereign Optimization Solver Policy: Cargo Deny Configuration
+# Forbids inclusion of foreign or commercial optimization solver dependencies.
+# ==============================================================================
+
+[bans]
+multiple-versions = "warn"
+wildcards = "deny"
+deny = [
+    # Prohibited Open Source & Commercial Solvers
+    { name = "highs" },
+    { name = "highs-sys" },
+    { name = "coin_cbc" },
+    { name = "coin_cbc_sys" },
+    { name = "glpk" },
+    { name = "glpk-sys" },
+    { name = "cplex" },
+    { name = "cplex-sys" },
+    { name = "gurobi" },
+    { name = "gurobi-sys" },
+    { name = "osqp" },
+    { name = "osqp-sys" },
+    { name = "scip" },
+    { name = "scip-sys" },
+    { name = "clarabel" },
+    { name = "faer" },
+    { name = "nalgebra-lapack" },
+]
+
+[licenses]
+unlicensed = "deny"
+allow = [
+    "Apache-2.0",
+    "MIT",
+    "BSD-3-Clause",
+    "ISC",
+    "Unicode-DFS-2016"
+]
+copyleft = "deny"
+
+[sources]
+unknown-registry = "deny"
+unknown-git = "deny"
+allow-registry = ["https://github.com/rust-lang/crates.io-index"]

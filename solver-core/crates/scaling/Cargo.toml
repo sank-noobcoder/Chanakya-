@@ -1,0 +1,11 @@
+[package]
+name = "chanakya-scaling"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+chanakya-model = { workspace = true }
+serde = { workspace = true }
+log = { workspace = true }

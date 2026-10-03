@@ -1,0 +1,36 @@
+name: Security Audit & Vulnerability Scanning
+
+on:
+  schedule:
+    - cron: '0 2 * * *' # Run nightly at 02:00 UTC
+  workflow_dispatch:
+
+jobs:
+  security-audit:
+    name: Multi-layer Dependency & SAST Audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Python Dependency Audit (pip-audit)
+        run: |
+          pip install pip-audit
+          cd backend && pip-audit -r requirements.txt || true
+
+      - name: Rust Security Audit (cargo-audit)
+        run: |
+          cargo install cargo-audit || true
+          cd solver-core && cargo audit || true
+
+      - name: Node.js Security Audit (npm audit)
+        run: |
+          cd frontend && npm audit --audit-level=high || true
+
+      - name: Run Static Application Security Testing (Semgrep)
+        uses: returntocorp/semgrep-action@v1
+        with:
+          config: >-
+            p/security-audit
+            p/secrets
+            p/owasp-top-ten
+        continue-on-error: true

@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-primary: #07090F;
+  --surface-primary: #0E1424;
+  --surface-border: rgba(255, 255, 255, 0.06);
+  --saffron-start: #FF9933;
+  --saffron-end: #FFC24D;
+  --cyan-live: #22D3EE;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: #F3F4F6;
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+  background-image: 
+    radial-gradient(circle at 50% 0%, rgba(255, 153, 51, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 100% 50%, rgba(34, 211, 238, 0.04) 0%, transparent 40%);
+}
+
+.font-heading {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
+  font-feature-settings: "tnum" 1;
+}
+
+/* Glassmorphism Panel */
+.glass-panel {
+  background: rgba(14, 20, 36, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+}
+
+.glass-panel-hover {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-panel-hover:hover {
+  border-color: rgba(255, 153, 51, 0.3);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5), 0 0 20px -5px rgba(255, 153, 51, 0.15);
+  transform: translateY(-2px);
+}
+
+/* Saffron Button */
+.btn-saffron {
+  background: linear-gradient(135deg, #FF9933 0%, #FFC24D 100%);
+  color: #07090F;
+  font-weight: 600;
+  border-radius: 12px;
+  padding: 10px 24px;
+  transition: all 0.2s ease-out;
+  box-shadow: 0 4px 15px rgba(255, 153, 51, 0.25);
+}
+
+.btn-saffron:hover {
+  box-shadow: 0 6px 25px rgba(255, 153, 51, 0.45);
+  transform: translateY(-1px);
+}
+
+/* Subtle Animated Mesh */
+.bg-grid {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}

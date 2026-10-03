@@ -1,0 +1,36 @@
+name: Nightly Netlib & MIPLIB Benchmark Regression
+
+on:
+  schedule:
+    - cron: '0 4 * * *' # Run nightly at 04:00 UTC
+  workflow_dispatch:
+
+jobs:
+  benchmark-regression:
+    name: Netlib Feasible Set & MIPLIB Verification
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Build Solver in Release Mode
+        run: |
+          cd solver-core
+          cargo build --release -p chanakya-cli
+
+      - name: Execute Netlib Feasible Benchmark
+        run: |
+          python scripts/run_benchmarks.py --suite netlib --output reports/nightly_netlib.json
+
+      - name: Verify Against HiGHS Baseline & Known Optima
+        run: |
+          python scripts/verify_benchmark_results.py --report reports/nightly_netlib.json --tolerance 1e-6
+
+      - name: Upload Benchmark Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: benchmark-reports
+          path: reports/

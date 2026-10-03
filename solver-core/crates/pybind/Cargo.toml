@@ -1,0 +1,18 @@
+[package]
+name = "chanakya-pybind"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[lib]
+name = "chanakya_py"
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+chanakya-model = { workspace = true }
+chanakya-io = { workspace = true }
+chanakya-lp = { workspace = true }
+chanakya-ipm = { workspace = true }
+chanakya-mip = { workspace = true }
+chanakya-verify = { workspace = true }

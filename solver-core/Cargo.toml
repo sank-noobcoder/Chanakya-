@@ -1,0 +1,57 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/model",
+    "crates/io",
+    "crates/scaling",
+    "crates/presolve",
+    "crates/linalg",
+    "crates/lp",
+    "crates/ipm",
+    "crates/qp",
+    "crates/mip",
+    "crates/parallel",
+    "crates/verify",
+    "crates/cli",
+    "crates/worker",
+    "crates/pybind",
+]
+
+[workspace.package]
+version = "0.1.0"
+authors = ["Chanakya Sovereign Optimization Engineering Team"]
+edition = "2021"
+license = "Apache-2.0"
+repository = "https://github.com/chanakya-solver/chanakya"
+
+[workspace.dependencies]
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+thiserror = "1.0"
+log = "0.4"
+env_logger = "0.11"
+clap = { version = "4.4", features = ["derive"] }
+rand = "0.8"
+rayon = "1.10"
+uuid = { version = "1.8", features = ["v4", "serde"] }
+chrono = { version = "0.4", features = ["serde"] }
+
+# Internal workspace crates
+chanakya-model = { path = "crates/model" }
+chanakya-io = { path = "crates/io" }
+chanakya-scaling = { path = "crates/scaling" }
+chanakya-presolve = { path = "crates/presolve" }
+chanakya-linalg = { path = "crates/linalg" }
+chanakya-lp = { path = "crates/lp" }
+chanakya-ipm = { path = "crates/ipm" }
+chanakya-qp = { path = "crates/qp" }
+chanakya-mip = { path = "crates/mip" }
+chanakya-parallel = { path = "crates/parallel" }
+chanakya-verify = { path = "crates/verify" }
+
+[profile.release]
+opt-level = 3
+lto = "fat"
+codegen-units = 1
+panic = "abort"
+overflow-checks = false

@@ -1,0 +1,21 @@
+# Multi-stage hardened build for sandboxed solver worker
+FROM rust:1.85-bookworm AS builder
+
+WORKDIR /app
+COPY . .
+RUN cargo build --release -p chanakya-worker -p chanakya-cli
+
+FROM debian:bookworm-slim
+
+# Create isolated unprivileged user
+RUN groupadd -g 10001 chanakya && \
+    useradd -u 10001 -g chanakya -s /bin/false -M chanakya
+
+WORKDIR /home/chanakya
+COPY --from=builder /app/target/release/chanakya /usr/local/bin/chanakya
+COPY --from=builder /app/target/release/chanakya-worker /usr/local/bin/chanakya-worker
+
+# Security hardening: read-only filesystem, drop privileges
+USER chanakya:chanakya
+
+ENTRYPOINT ["chanakya-worker"]

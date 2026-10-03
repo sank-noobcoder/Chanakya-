@@ -1,0 +1,26 @@
+[package]
+name = "chanakya-worker"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "chanakya-worker"
+path = "src/main.rs"
+
+[dependencies]
+chanakya-model = { workspace = true }
+chanakya-io = { workspace = true }
+chanakya-scaling = { workspace = true }
+chanakya-presolve = { workspace = true }
+chanakya-lp = { workspace = true }
+chanakya-ipm = { workspace = true }
+chanakya-qp = { workspace = true }
+chanakya-mip = { workspace = true }
+chanakya-verify = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+log = { workspace = true }
+env_logger = { workspace = true }
+tokio = { version = "1.38", features = ["full"] }

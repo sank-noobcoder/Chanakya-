@@ -1,0 +1,16 @@
+[package]
+name = "chanakya-mip"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+chanakya-model = { workspace = true }
+chanakya-lp = { workspace = true }
+chanakya-scaling = { workspace = true }
+chanakya-presolve = { workspace = true }
+serde = { workspace = true }
+log = { workspace = true }
+rand = { workspace = true }
+thiserror = { workspace = true }
