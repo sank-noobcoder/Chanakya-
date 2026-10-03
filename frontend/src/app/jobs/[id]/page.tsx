@@ -213,7 +213,7 @@ function JobDetailContent({ params }: { params: { id: string } }) {
           }`}
         >
           <Box className="w-4 h-4 text-cyan-live" />
-          <span>3D Mathematics & Polytope</span>
+          <span>Interactive 3D Feasible Region (Polytope)</span>
         </button>
         <button
           onClick={() => setActiveTab("log")}

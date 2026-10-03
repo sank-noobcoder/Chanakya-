@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { Activity, Clock, Cpu, CheckCircle2, AlertTriangle, ArrowUpRight, Plus, RefreshCw } from "lucide-react";
+import { Activity, Clock, Cpu, CheckCircle2, AlertTriangle, ArrowUpRight, Plus, RefreshCw, Box } from "lucide-react";
 import AuthGuard from "@/components/AuthGuard";
 import { useAuth } from "@/context/AuthContext";
 
@@ -103,6 +103,13 @@ function DashboardContent() {
             <RefreshCw className={`w-3.5 h-3.5 ${isRefreshing ? "animate-spin text-saffron" : ""}`} />
             <span>Refresh</span>
           </button>
+          <Link
+            href="/visualizer"
+            className="flex items-center space-x-2 px-3.5 py-2 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-live hover:bg-cyan-500/20 text-xs font-mono transition-all"
+          >
+            <Box className="w-3.5 h-3.5" />
+            <span>Interactive 3D Polytope</span>
+          </Link>
           <Link href="/jobs/new" className="btn-saffron flex items-center space-x-2">
             <Plus className="w-4 h-4" />
             <span>New Optimization Job</span>
