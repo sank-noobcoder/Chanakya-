@@ -2,7 +2,7 @@ import uuid
 from datetime import datetime
 from enum import Enum
 from typing import Any, Dict, List, Optional
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 
 class AlgorithmEnum(str, Enum):
@@ -13,13 +13,21 @@ class AlgorithmEnum(str, Enum):
 
 
 class JobParams(BaseModel):
-    model_config = ConfigDict(extra="forbid")
+    model_config = ConfigDict(extra="ignore")
 
     time_limit_s: int = Field(default=600, ge=1, le=3600, description="Time limit in seconds (1 to 3600)")
     mip_gap: float = Field(default=0.0001, ge=0.0, le=1.0, description="Relative MIP gap (0.0 to 1.0)")
     threads: int = Field(default=4, ge=1, le=64, description="Threads (1 to 64)")
     seed: int = Field(default=42, ge=0, le=4294967295, description="Random seed")
     algorithm: AlgorithmEnum = Field(default=AlgorithmEnum.AUTO)
+
+    @model_validator(mode="before")
+    @classmethod
+    def handle_time_limit_alias(cls, values: Any) -> Any:
+        if isinstance(values, dict):
+            if "time_limit" in values and "time_limit_s" not in values:
+                values["time_limit_s"] = values.pop("time_limit")
+        return values
 
 
 class JobSubmitResponse(BaseModel):

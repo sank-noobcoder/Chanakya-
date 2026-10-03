@@ -67,7 +67,7 @@ function NewSolveContent() {
       formData.append(
         "params",
         JSON.stringify({
-          time_limit: timeLimit,
+          time_limit_s: timeLimit,
           mip_gap: mipGap,
           threads: threads,
           seed: seed,

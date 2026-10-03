@@ -26,10 +26,19 @@ async def submit_job(
 ):
     try:
         parsed_params_dict = json.loads(params)
+        if not isinstance(parsed_params_dict, dict):
+            parsed_params_dict = {}
     except json.JSONDecodeError:
         raise HTTPException(status_code=422, detail="Invalid JSON in params field.")
 
-    job_params = JobParams(**parsed_params_dict)
+    if "time_limit" in parsed_params_dict and "time_limit_s" not in parsed_params_dict:
+        parsed_params_dict["time_limit_s"] = parsed_params_dict.pop("time_limit")
+
+    try:
+        job_params = JobParams(**parsed_params_dict)
+    except Exception as e:
+        raise HTTPException(status_code=422, detail=f"Invalid job parameters: {str(e)}")
+
     file_bytes = await model_file.read()
 
     job_service = JobService(session)
