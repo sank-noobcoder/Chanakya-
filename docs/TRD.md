@@ -237,7 +237,7 @@ CREATE TABLE audit_log (
 
 ```
 chanakya/
-├── README.md  PRD.md  TRD.md  SECURITY.md  CONTRIBUTING.md  LICENSE
+├── README.md  SECURITY.md  CONTRIBUTING.md  LICENSE
 ├── Makefile
 ├── docker-compose.yml
 ├── docker-compose.prod.yml
@@ -256,7 +256,7 @@ chanakya/
 │   ├── fuzz/                  # cargo-fuzz parser targets
 │   └── tests/
 │
-├── backend/                   # FastAPI
+├── server/                    # FastAPI
 │   ├── pyproject.toml  Dockerfile  alembic.ini
 │   ├── migrations/
 │   ├── app/
@@ -272,7 +272,7 @@ chanakya/
 │   │   └── utils/
 │   └── tests/ (unit integration security)
 │
-├── frontend/                  # Next.js
+├── client/                    # Next.js
 │   ├── package.json  next.config.js  tailwind.config.ts
 │   ├── public/
 │   └── src/
@@ -283,7 +283,7 @@ chanakya/
 │
 ├── benchmarks/ (data runners reports)
 ├── infra/ (nginx k8s terraform monitoring sandbox)
-├── docs/ (architecture algorithms api security runbooks)
+├── docs/ (PRD TRD architecture algorithms api security runbooks)
 └── scripts/
 ```
 

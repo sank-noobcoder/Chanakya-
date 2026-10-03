@@ -12,11 +12,11 @@ Thank you for contributing to the sovereign optimization engine for India.
   - `cargo fmt --all -- --check`
   - `cargo clippy --workspace --all-targets -- -D warnings`
   - `cargo test --workspace`
-- **Backend (Python 3.12 / FastAPI):**
+- **Server / Backend (Python 3.12 / FastAPI):**
   - Type annotations required on all functions (`mypy --strict`)
   - Format with `ruff format` and lint with `ruff check`
   - 100% Parameterized queries only. Never concatenate SQL strings.
-- **Frontend (Next.js 14 / TypeScript):**
+- **Client / Frontend (Next.js 14 / TypeScript):**
   - Strict TypeScript configuration (`tsc --noEmit`)
   - ESLint passing with zero warnings
   - Accessible components adhering to WCAG AA.
@@ -24,5 +24,5 @@ Thank you for contributing to the sovereign optimization engine for India.
 ## 3. Development Workflow
 1. Fork the repository and create your feature branch: `git checkout -b feat/scaling-curtis-reid`.
 2. Commit with conventional commit messages (`feat:`, `fix:`, `perf:`, `security:`).
-3. Ensure all tests pass, including the security test matrix (`pytest tests/test_security_matrix.py`).
+3. Ensure all tests pass, including the security test matrix (`cd server && pytest tests/test_security_matrix.py`).
 4. Submit your pull request with a detailed description.

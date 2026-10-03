@@ -22,7 +22,7 @@ services:
 
   frontend:
     build:
-      context: ./frontend
+      context: ./client
       dockerfile: Dockerfile
     restart: always
     environment:
@@ -39,7 +39,7 @@ services:
 
   backend:
     build:
-      context: ./backend
+      context: ./server
       dockerfile: Dockerfile
     restart: always
     environment:

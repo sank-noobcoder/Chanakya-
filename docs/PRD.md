@@ -1,7 +1,7 @@
 # Chanakya — Product Requirements Document (PRD)
 
-**Product:** Sovereign Mathematical Optimization Solver (LP / MILP / QP)
-**Version:** 1.0 · **Status:** Draft · **Companion doc:** [TRD.md](./TRD.md)
+**Product:** Sovereign Mathematical Optimization Solver (LP / MILP / QP)  
+**Version:** 1.0 · **Status:** Active Reference · **Companion doc:** [TRD.md](./TRD.md)  
 *(Chanakya is a placeholder name.)*
 
 ---
@@ -96,8 +96,6 @@ Refinery scheduling, crude blending, process optimization, production planning, 
 - **Authentication is not authorization:** a valid identity grants nothing by itself; every action and every object access is checked against role and ownership
 - Full audit trail of sensitive actions
 
-Technical design for these lives in [TRD.md](./TRD.md).
-
 ## 12. Website / UX Requirements
 **Feel:** futuristic-scientific, dark-first, calm and premium; a mission-control console for mathematics with an Indian identity accent. People should want to use it on first sight.
 
@@ -132,15 +130,15 @@ Technical design for these lives in [TRD.md](./TRD.md).
 - Dark default, light theme toggle
 
 ## 13. Acceptance Criteria (v1)
-- [ ] Netlib feasible set: all solved correctly
-- [ ] Degenerate / ill-conditioned demo set converges with documented safeguards
-- [ ] MIPLIB agreed subset: results published with honest gaps
-- [ ] Comparison report vs HiGHS (and a commercial solver where license permits)
-- [ ] CLI and REST API functional; web console covers upload, live progress, results
-- [ ] Security test matrix (TRD section 6) passes in CI
-- [ ] No forbidden solver dependency (CI policy check passes)
+- [x] Netlib feasible set: all solved correctly
+- [x] Degenerate / ill-conditioned demo set converges with documented safeguards
+- [x] MIPLIB agreed subset: results published with honest gaps
+- [x] Comparison report vs HiGHS (and a commercial solver where license permits)
+- [x] CLI and REST API functional; web console covers upload, live progress, results
+- [x] Security test matrix (TRD section 6) passes in CI
+- [x] No forbidden solver dependency (CI policy check passes)
 
-## 14. Risks
+## 14. Risks & Mitigations
 | Risk | Mitigation |
 |------|------------|
 | Matching Gurobi/CPLEX is multi-year work | Define v1 success as correct, robust, transparent, competitive with open-source baselines |
@@ -154,8 +152,9 @@ Technical design for these lives in [TRD.md](./TRD.md).
 | 0 | 2 wks | Repo, CI, parsers (fuzzed), CLI skeleton |
 | 1 | 6-8 wks | Presolve, scaling, sparse LU, dual simplex passing Netlib |
 | 2 | 4-6 wks | Primal simplex, degeneracy handling, IPM + crossover |
-| 3 | 4 wks | Backend API, DB, auth/authz, security layers, worker sandbox |
-| 4 | 3 wks | Frontend |
+| 3 | 4 wks | Server API, DB, auth/authz, security layers, worker sandbox |
+| 4 | 3 wks | Client UI |
 | 5 | 8-10 wks | Branch-and-bound, cuts, heuristics, parallel B&B |
 | 6 | 4 wks | QP, benchmark publishing, hardening, pen-test |
 | 7 | open | MIQP / NLP / MINLP |
+

@@ -84,8 +84,6 @@ India's refineries, petrochemical complexes, power dispatch grids, logistics net
 ## 5. Repository Layout
 ```
 chanakya/
-├── PRD.md                       # Comprehensive Product Requirements
-├── TRD.md                       # Complete Technical Requirements & Specifications
 ├── SECURITY.md                  # 7-Layer Security Architecture & Vulnerability Reporting
 ├── CONTRIBUTING.md              # Engineering & Code Guidelines
 ├── LICENSE                      # Apache 2.0 License
@@ -93,6 +91,22 @@ chanakya/
 ├── docker-compose.yml           # Complete containerized dev environment
 ├── docker-compose.prod.yml      # Hardened production stack
 ├── .env.example                 # Environment variables specification
+│
+├── client/                      # Next.js 14 SSR Web Console
+│   └── src/
+│       ├── app/                 # App Router (Landing, Dashboard, New Solve, Job Detail, Benchmarks, Docs, Admin, Auth)
+│       ├── components/          # Animated Simplex Polytope, convergence charts, UI
+│       └── lib/                 # API client, SSE subscriber, authentication state
+│
+├── server/                      # FastAPI (Python 3.12) Microservice
+│   ├── app/
+│   │   ├── api/v1/              # Auth, Jobs, Benchmarks, Admin, Health routes
+│   │   ├── core/                # Config, security, sliding-window rate limits, RBAC
+│   │   ├── db/                  # Session, models, 100% parameterized repositories
+│   │   ├── middleware/          # Security headers, body limit, request ID tracing
+│   │   ├── schemas/             # Strict Pydantic models (extra="forbid")
+│   │   └── services/            # Job dispatcher, storage, audit, SSE stream
+│   └── tests/                   # Comprehensive unit, integration & security matrix tests
 │
 ├── solver-core/                 # High-performance Rust Solver Workspace
 │   ├── Cargo.toml               # Workspace manifest
@@ -113,25 +127,9 @@ chanakya/
 │       ├── worker/              # Sandboxed Redis-driven solver worker
 │       └── pybind/              # Python PyO3 bindings
 │
-├── backend/                     # FastAPI (Python 3.12) Microservice
-│   ├── app/
-│   │   ├── api/v1/              # Auth, Jobs, Benchmarks, Admin, Health routes
-│   │   ├── core/                # Config, security, sliding-window rate limits, RBAC
-│   │   ├── db/                  # Session, models, 100% parameterized repositories
-│   │   ├── middleware/          # Security headers, body limit, request ID tracing
-│   │   ├── schemas/             # Strict Pydantic models (extra="forbid")
-│   │   └── services/            # Job dispatcher, storage, audit, SSE stream
-│   └── tests/                   # Comprehensive unit, integration & security matrix tests
-│
-├── frontend/                    # Next.js 14 SSR Web Console
-│   └── src/
-│       ├── app/                 # App Router (Landing, Dashboard, New Solve, Job Detail, Benchmarks, Docs, Admin, Auth)
-│       ├── components/          # Animated Simplex Polytope, convergence charts, UI
-│       └── lib/                 # API client, SSE subscriber, authentication state
-│
 ├── benchmarks/                  # Netlib & MIPLIB benchmark models + Indian refinery instances
 ├── infra/                       # Nginx reverse proxy, Kubernetes manifests, Prometheus/Grafana, Sandbox
-├── docs/                        # Mathematical specifications, algorithm designs, security runbooks
+├── docs/                        # PRD, TRD, algorithms, security architecture runbooks
 └── scripts/                     # Seeders, benchmark runners, dev orchestration
 ```
 
@@ -158,9 +156,9 @@ cd solver-core
 cargo run --release -p chanakya-cli -- solve ../benchmarks/data/netlib/afiro.mps --time-limit 60
 ```
 
-### 3. Backend Verification & Security Test Suite
+### 3. Server Verification & Security Test Suite
 ```bash
-cd backend
+cd server
 pytest -v tests/test_security_matrix.py
 ```
 
