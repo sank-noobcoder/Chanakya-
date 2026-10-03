@@ -103,20 +103,30 @@ export default function Navbar() {
               <button
                 onClick={logout}
                 title="Sign Out of Mission Control"
-                className="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl border border-white/10 bg-surface/80 text-xs font-mono text-gray-300 hover:text-red-400 hover:border-red-500/30 hover:bg-red-500/5 transition-all"
+                className="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl border border-red-500/30 bg-red-500/10 text-xs font-mono text-red-400 hover:bg-red-500/20 hover:text-red-300 transition-all shadow-sm font-semibold"
               >
                 <LogOut className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline">Sign Out</span>
+                <span>Sign Out</span>
               </button>
             </div>
           ) : (
-            <Link
-              href="/auth/login"
-              className="flex items-center space-x-1.5 px-3.5 py-1.5 rounded-xl border border-white/10 bg-surface text-sm font-medium text-gray-300 hover:text-white hover:border-saffron/40 transition-all"
-            >
-              <User className="w-4 h-4 text-gray-400" />
-              <span>Console Access</span>
-            </Link>
+            <div className="flex items-center space-x-2">
+              <Link
+                href="/auth/login"
+                className="flex items-center space-x-1.5 px-3.5 py-1.5 rounded-xl border border-white/10 bg-surface text-sm font-medium text-gray-300 hover:text-white hover:border-saffron/40 transition-all"
+              >
+                <User className="w-4 h-4 text-gray-400" />
+                <span>Console Access</span>
+              </Link>
+              <button
+                onClick={logout}
+                title="Clear Session"
+                className="flex items-center space-x-1 px-2.5 py-1.5 rounded-xl border border-white/10 bg-surface/50 text-xs font-mono text-gray-400 hover:text-red-400 transition-all"
+              >
+                <LogOut className="w-3.5 h-3.5" />
+                <span>Sign Out</span>
+              </button>
+            </div>
           )}
         </div>
       </div>

@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { Activity, Clock, Cpu, CheckCircle2, AlertTriangle, ArrowUpRight, Plus, RefreshCw, Box } from "lucide-react";
+import { Activity, Clock, Cpu, CheckCircle2, AlertTriangle, ArrowUpRight, Plus, RefreshCw, Box, LogOut } from "lucide-react";
 import AuthGuard from "@/components/AuthGuard";
 import { useAuth } from "@/context/AuthContext";
 
@@ -17,7 +17,7 @@ interface JobItem {
 }
 
 function DashboardContent() {
-  const { token } = useAuth();
+  const { token, logout } = useAuth();
   const [recentJobs, setRecentJobs] = useState<JobItem[]>([]);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
@@ -114,6 +114,14 @@ function DashboardContent() {
             <Plus className="w-4 h-4" />
             <span>New Optimization Job</span>
           </Link>
+          <button
+            onClick={logout}
+            className="flex items-center space-x-1.5 px-3 py-2 rounded-xl border border-red-500/30 bg-red-500/10 text-xs font-mono text-red-400 hover:bg-red-500/20 hover:text-red-300 transition-all font-semibold"
+            title="Sign Out of Session"
+          >
+            <LogOut className="w-3.5 h-3.5" />
+            <span>Sign Out</span>
+          </button>
         </div>
       </div>
 
